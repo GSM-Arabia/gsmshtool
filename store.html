@@ -1,0 +1,21 @@
+<h1>متجر الاشتراكات</h1>
+
+<button onclick="buy('Basic')">Basic</button>
+<button onclick="buy('Pro')">Pro</button>
+
+<script type="module">
+import { db, auth } from "./js/firebase.js";
+import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+window.buy = async(plan)=>{
+  let user = auth.currentUser;
+  if(!user) return alert("سجل دخول");
+
+  await addDoc(collection(db,"orders"), {
+    email:user.email,
+    plan:plan
+  });
+
+  alert("تم الطلب");
+};
+</script>
