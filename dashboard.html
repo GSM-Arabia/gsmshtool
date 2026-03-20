@@ -10,3 +10,24 @@ getDocs(collection(db,"services")).then(d=>{
   });
 });
 </script>
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+onAuthStateChanged(auth, async (user)=>{
+  if(!user){
+    location="login.html";
+    return;
+  }
+
+  const data = await getDocs(collection(db,"services"));
+  let html = "";
+
+  data.forEach(doc=>{
+    html += `<div class="service">${doc.data().name}</div>`;
+  });
+
+  document.body.innerHTML += html;
+});
+</script>
