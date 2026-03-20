@@ -1,1 +1,12 @@
-<h1>Dashboard</h1><div>Services هنا</div>
+<div id="services"></div>
+
+<script type="module">
+import { db } from "./js/firebase.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+getDocs(collection(db,"services")).then(d=>{
+  d.forEach(doc=>{
+    services.innerHTML += `<div>${doc.data().name}</div>`;
+  });
+});
+</script>
