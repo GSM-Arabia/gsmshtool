@@ -1,0 +1,12 @@
+<button onclick="register()">إنشاء حساب</button>
+
+<script>
+function register(){
+  let email = email.value;
+  let pass = password.value;
+
+  auth.createUserWithEmailAndPassword(email, pass)
+  .then(()=>alert("تم إنشاء الحساب"))
+  .catch(e=>alert(e.message));
+}
+</script>
