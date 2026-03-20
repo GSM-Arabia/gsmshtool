@@ -1,0 +1,16 @@
+<h1>لوحة المستخدم</h1>
+
+<div id="services"></div>
+
+<script>
+db.collection("services").get().then((data)=>{
+  data.forEach(doc=>{
+    let s = doc.data();
+
+    document.getElementById("services").innerHTML += `
+    <div onclick="alert('${s.name}')">
+      ${s.name}
+    </div>`;
+  });
+});
+</script>
