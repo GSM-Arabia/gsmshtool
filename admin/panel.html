@@ -1,24 +1,20 @@
-<h1>لوحة المدير</h1>
-
-<input id="serviceName" placeholder="اسم الخدمة">
-<button onclick="addService()">إضافة</button>
+<input id="name">
+<button onclick="add()">إضافة خدمة</button>
 
 <div id="list"></div>
 
-<script>
-function addService(){
-  let name = serviceName.value;
+<script type="module">
+import { db } from "../js/firebase.js";
+import { addDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-  db.collection("services").add({
-    name: name
-  }).then(()=> alert("تمت الإضافة"));
-}
+window.add = async ()=>{
+  await addDoc(collection(db,"services"), {name:name.value});
+  alert("تمت الإضافة");
+};
 
-// عرض الخدمات
-db.collection("services").get().then((data)=>{
-  data.forEach(doc=>{
-    let s = doc.data();
-    list.innerHTML += `<p>${s.name}</p>`;
+getDocs(collection(db,"services")).then(d=>{
+  d.forEach(doc=>{
+    list.innerHTML += `<p>${doc.data().name}</p>`;
   });
 });
 </script>
