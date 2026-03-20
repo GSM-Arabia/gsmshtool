@@ -18,3 +18,33 @@ getDocs(collection(db,"services")).then(d=>{
   });
 });
 </script>
+<script type="module">
+import { db } from "../js/firebase.js";
+import { addDoc, deleteDoc, doc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+window.add = async ()=>{
+  await addDoc(collection(db,"services"), {
+    name: name.value
+  });
+  load();
+}
+
+async function load(){
+  list.innerHTML="";
+  const data = await getDocs(collection(db,"services"));
+
+  data.forEach(d=>{
+    list.innerHTML += `
+      <p>${d.data().name}
+      <button onclick="del('${d.id}')">❌</button></p>
+    `;
+  });
+}
+
+window.del = async(id)=>{
+  await deleteDoc(doc(db,"services",id));
+  load();
+}
+
+load();
+</script>
