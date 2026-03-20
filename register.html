@@ -1,0 +1,14 @@
+<script type="module">
+import { auth } from "./js/firebase.js";
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+window.register = function(){
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+  .then(()=>alert("تم إنشاء الحساب"))
+  .catch(e=>alert(e.message));
+}
+</script>
+
+<input id="email">
+<input id="password">
+<button onclick="register()">تسجيل</button>
