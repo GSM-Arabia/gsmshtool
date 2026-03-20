@@ -1,0 +1,24 @@
+<h1>لوحة المدير</h1>
+
+<input id="serviceName" placeholder="اسم الخدمة">
+<button onclick="addService()">إضافة</button>
+
+<div id="list"></div>
+
+<script>
+function addService(){
+  let name = serviceName.value;
+
+  db.collection("services").add({
+    name: name
+  }).then(()=> alert("تمت الإضافة"));
+}
+
+// عرض الخدمات
+db.collection("services").get().then((data)=>{
+  data.forEach(doc=>{
+    let s = doc.data();
+    list.innerHTML += `<p>${s.name}</p>`;
+  });
+});
+</script>
